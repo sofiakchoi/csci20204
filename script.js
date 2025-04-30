@@ -21,8 +21,7 @@ const canvas=document.querySelector('#drawhere');
 
 const ctx=canvas.getContext('2d');
 // all the drawing for the canvas in ctx
-canvas.height=window.innerHeight;
-canvas.width=window.innerWidth;
+
 
 ctx.strokeStyle= '#51c9bb';
 ctx.lineJoin='round';
