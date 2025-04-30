@@ -72,24 +72,12 @@ function draw(clientX, clientY){
     return; 
 
     
-ctx.strokeStyle= `hsl(${hue},100%,50%)`;
 ctx.beginPath();
 ctx.moveTo(lastX,lastY);
 ctx.lineTo(clientX - canvasOffsetX,clientY - canvasOffsetY); 
 ctx.stroke(); 
 [lastX,lastY]=[clientX,clientY];
 
-hue++;
-if(hue>=360){
-    hue=0;
-}
-if(ctx.lineWidth>=80 || ctx.lineWidth<=1){
-    direction=!direction;
-}
-if(direction)
-ctx.lineWidth++;
-else
-ctx.lineWidth--;
 
 }
 
@@ -107,7 +95,7 @@ document.body.addEventListener("touchend", function (e) {
   if (e.target == canvas) {
     e.preventDefault();
     isDrawing=false;
-    ctx.beginPath();
+  
   }
 }, false);
 document.body.addEventListener("touchmove", function (e) {
