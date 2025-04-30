@@ -69,15 +69,27 @@ toolbar.addEventListener('change', e => {
 
 function draw(clientX, clientY){
     if(!isDrawing)
-    return; //only run in click and drag
+    return; 
 
+    
+ctx.strokeStyle= `hsl(${hue},100%,50%)`;
 ctx.beginPath();
-ctx.moveTo(lastX,lastY); //start from
-ctx.lineTo(clientX - canvasOffsetX,clientY - canvasOffsetY); //go to
-ctx.stroke(); //to actually draw the path on canvas
+ctx.moveTo(lastX,lastY);
+ctx.lineTo(clientX - canvasOffsetX,clientY - canvasOffsetY); 
+ctx.stroke(); 
 [lastX,lastY]=[clientX,clientY];
-// lastX=e.offsetX;
-// lastY=e.offsetY;
+
+hue++;
+if(hue>=360){
+    hue=0;
+}
+if(ctx.lineWidth>=80 || ctx.lineWidth<=1){
+    direction=!direction;
+}
+if(direction)
+ctx.lineWidth++;
+else
+ctx.lineWidth--;
 
 }
 
