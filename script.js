@@ -22,6 +22,11 @@ const canvas=document.querySelector('#drawhere');
 const ctx=canvas.getContext('2d');
 // all the drawing for the canvas in ctx
 
+const canvasOffsetX = canvas.offsetLeft;
+const canvasOffsetY = canvas.offsetTop;
+
+canvas.height = 250;
+canvas.width = 250;
 
 ctx.strokeStyle= '#51c9bb';
 ctx.lineJoin='round';
