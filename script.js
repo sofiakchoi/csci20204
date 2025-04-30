@@ -69,15 +69,14 @@ toolbar.addEventListener('change', e => {
 
 function draw(clientX, clientY){
     if(!isDrawing)
-    return; //only run in click and drag
+    return; 
 
 ctx.beginPath();
-ctx.moveTo(lastX,lastY); //start from
-ctx.lineTo(clientX,clientY); //go to
-ctx.stroke(); //to actually draw the path on canvas
+ctx.moveTo(e.clientX,e.clientY); 
+ctx.lineTo(clientX,clientY); 
+ctx.stroke(); 
 [lastX,lastY]=[clientX,clientY];
-// lastX=e.offsetX;
-// lastY=e.offsetY;
+
 
 }
 
@@ -95,6 +94,7 @@ document.body.addEventListener("touchend", function (e) {
   if (e.target == canvas) {
     e.preventDefault();
     isDrawing=false;
+    ctx.beginPath();
   }
 }, false);
 document.body.addEventListener("touchmove", function (e) {
