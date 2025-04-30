@@ -73,7 +73,7 @@ function draw(clientX, clientY){
 
 ctx.beginPath();
 ctx.moveTo(lastX,lastY); //start from
-ctx.lineTo(clientX - canvasOffsetX,clientY); //go to
+ctx.lineTo(clientX,clientY); //go to
 ctx.stroke(); //to actually draw the path on canvas
 [lastX,lastY]=[clientX,clientY];
 // lastX=e.offsetX;
