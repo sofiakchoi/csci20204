@@ -73,7 +73,7 @@ function draw(clientX, clientY){
 
 ctx.beginPath();
 ctx.moveTo(lastX,lastY); //start from
-ctx.lineTo(clientX,clientY); //go to
+ctx.lineTo(clientX - canvasOffsetX,clientY - canvasOffsetY); //go to
 ctx.stroke(); //to actually draw the path on canvas
 [lastX,lastY]=[clientX,clientY];
 // lastX=e.offsetX;
@@ -95,6 +95,7 @@ document.body.addEventListener("touchend", function (e) {
   if (e.target == canvas) {
     e.preventDefault();
     isDrawing=false;
+    ctx.beginPath();
   }
 }, false);
 document.body.addEventListener("touchmove", function (e) {
