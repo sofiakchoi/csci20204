@@ -17,75 +17,147 @@ window.onload = function () {
   }, 1000);
 }
 
-const canvas = document.getElementById('drawhere');
-const toolbar = document.getElementById('toolbar');
-const ctx = canvas.getContext('2d');
+const canvas=document.querySelector('#drawhere');
 
-const canvasOffsetX = canvas.offsetLeft;
-const canvasOffsetY = canvas.offsetTop;
+const ctx=canvas.getContext('2d');
+// all the drawing for the canvas in ctx
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
 
-canvas.height = window.innerHeight - 250;
+ctx.strokeStyle= '#51c9bb';
+ctx.lineJoin='round';
+ctx.lineCap='round';
+ctx.lineWidth=30;
 
-let isPainting = false;
-let lineWidth = 5;
-let startX;
-let startY;
+//flag
+let isDrawing=false; //don't draw when mouse is just moving mouse w/o doing anything
 
-toolbar.addEventListener('click', e => {
-    if (e.target.id === 'clear') {
-      location.reload();
-    }
-});
+//where to start a line from and then where to end it
+let lastX=0;
+let lastY=0;
+let hue=0;
+let direction=true;
 
-toolbar.addEventListener('click', e => {
-  if (e.target.id === 'save') {
-    var canvas = document.querySelector("#drawhere");    
-    var element = document.createElement('a');
-    var filename = 'drawing.png';
-    element.setAttribute('download', filename);
-    var image = canvas.toDataURL("image/png");
-    element.setAttribute('href', image);
+function draw(clientX, clientY){
+    if(!isDrawing)
+    return; //only run in click and drag
 
-    element.click();
-  }
-});
+ctx.strokeStyle= `hsl(${hue},100%,50%)`;
+ctx.beginPath();
+ctx.moveTo(lastX,lastY); //start from
+ctx.lineTo(clientX,clientY); //go to
+ctx.stroke(); //to actually draw the path on canvas
+[lastX,lastY]=[clientX,clientY];
+// lastX=e.offsetX;
+// lastY=e.offsetY;
 
-toolbar.addEventListener('change', e => {
-    if(e.target.id === 'stroke') {
-        ctx.strokeStyle = e.target.value;
-    }
-
-    if(e.target.id === 'lineWidth') {
-        lineWidth = e.target.value;
-    }
-    
-});
-
-const draw = (e) => {
-    if(!isPainting) {
-        return;
-    }
-
-    ctx.lineWidth = lineWidth;
-    ctx.lineCap = 'round';
-
-    ctx.lineTo(e.clientX - canvasOffsetX, e.clientY - 125 );
-    ctx.stroke();
+hue++;
+if(hue>=360){
+    hue=0;
+}
+if(ctx.lineWidth>=80 || ctx.lineWidth<=1){
+    direction=!direction;
+}
+if(direction)
+ctx.lineWidth++;
+else
+ctx.lineWidth--;
 }
 
-canvas.addEventListener('touchstart', (e) => {
-    isPainting = true;
-    startX = e.clientX;
-    startY = e.clientY;
-});
+//canvas on mobile
+document.body.addEventListener("touchstart", function (e) {
+  if (e.target == canvas) {
+   e.preventDefault();
+   clientX = e.touches[0].clientX;
+   clientY = e.touches[0].clientY; 
+   isDrawing=true;
+   draw(clientX, clientY)
+  }
+}, false);
+document.body.addEventListener("touchend", function (e) {
+  if (e.target == canvas) {
+    e.preventDefault();
+    isDrawing=false;
+  }
+}, false);
+document.body.addEventListener("touchmove", function (e) {
+  if (e.target == canvas) {
+    e.preventDefault();
+    clientX = e.touches[0].clientX;
+    clientY = e.touches[0].clientY;
+    draw(clientX, clientY)
+  }
+}, false);
 
-canvas.addEventListener('touchend', e => {
-    isPainting = false;
-    ctx.stroke();
-    ctx.beginPath();
-});
+// const canvas = document.getElementById('drawhere');
+// const toolbar = document.getElementById('toolbar');
+// const ctx = canvas.getContext('2d');
 
-canvas.addEventListener('touchmove', draw);
+// const canvasOffsetX = canvas.offsetLeft;
+// const canvasOffsetY = canvas.offsetTop;
+
+// canvas.height = window.innerHeight;
+
+// let isPainting = false;
+// let lineWidth = 5;
+// let startX;
+// let startY;
+
+// toolbar.addEventListener('click', e => {
+//     if (e.target.id === 'clear') {
+//       location.reload();
+//     }
+// });
+
+// toolbar.addEventListener('click', e => {
+//   if (e.target.id === 'save') {
+//     var canvas = document.querySelector("#drawhere");    
+//     var element = document.createElement('a');
+//     var filename = 'drawing.png';
+//     element.setAttribute('download', filename);
+//     var image = canvas.toDataURL("image/png");
+//     element.setAttribute('href', image);
+
+//     element.click();
+//   }
+// });
+
+// toolbar.addEventListener('change', e => {
+//     if(e.target.id === 'stroke') {
+//         ctx.strokeStyle = e.target.value;
+//     }
+
+//     if(e.target.id === 'lineWidth') {
+//         lineWidth = e.target.value;
+//     }
+    
+// });
+
+// const draw = (e) => {
+//     if(!isPainting) {
+//         return;
+//     }
+
+//     ctx.lineWidth = lineWidth;
+//     ctx.lineCap = 'round';
+
+//     ctx.lineTo(e.clientX - canvasOffsetX, e.clientY - 125 );
+//     ctx.stroke();
+// }
+
+// canvas.addEventListener('touchstart', (e) => {
+//     isPainting = true;
+//     startX = e.clientX;
+//     startY = e.clientY;
+// });
+
+// canvas.addEventListener('touchend', e => {
+//     isPainting = false;
+//     ctx.stroke();
+//     ctx.beginPath();
+// });
+
+// canvas.addEventListener('touchmove', draw);
 
 
 
