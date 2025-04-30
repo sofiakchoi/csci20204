@@ -72,8 +72,8 @@ function draw(clientX, clientY){
     return; 
 
 ctx.beginPath();
-ctx.moveTo(clientX,clientY); 
-ctx.lineTo(clientX,clientY); 
+ctx.moveTo(lastX,lastY); 
+ctx.lineTo(clientX - canvasOffsetX,clientY - canvasOffsetY); 
 ctx.stroke(); 
 [lastX,lastY]=[clientX,clientY];
 
