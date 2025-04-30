@@ -72,7 +72,7 @@ function draw(clientX, clientY){
     return; 
 
 ctx.beginPath();
-ctx.moveTo(e.clientX,e.clientY); 
+ctx.moveTo(clientX,clientY); 
 ctx.lineTo(clientX,clientY); 
 ctx.stroke(); 
 [lastX,lastY]=[clientX,clientY];
