@@ -49,15 +49,16 @@ body {
 }
 
 button {
-    padding: 10px;
+    padding: 5px;
     color: #0909aa;
     border: 2px solid #0909aa;
     background-color: transparent;
+    font-size: small;
 }
 
 
 button:active {
-    padding: 10px;
+    padding: 5px;
     background-color: #0909aa;
     color: #eaeaf6;
     border: 2px solid #0909aa;
