@@ -69,15 +69,15 @@ toolbar.addEventListener('change', e => {
 
 function draw(clientX, clientY){
     if(!isDrawing)
-    return; 
+    return; //only run in click and drag
 
-    
 ctx.beginPath();
-ctx.moveTo(lastX,lastY);
-ctx.lineTo(clientX - canvasOffsetX,clientY - canvasOffsetY); 
-ctx.stroke(); 
+ctx.moveTo(lastX,lastY); //start from
+ctx.lineTo(clientX - canvasOffsetX,clientY - canvasOffsetY); //go to
+ctx.stroke(); //to actually draw the path on canvas
 [lastX,lastY]=[clientX,clientY];
-
+// lastX=e.offsetX;
+// lastY=e.offsetY;
 
 }
 
