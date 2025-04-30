@@ -1,7 +1,7 @@
 
 window.onload = function () {
   var minute = 0;
-  var sec = 59;
+  var sec = 30;
   setInterval(function () {
     document.getElementById("count").innerHTML = "0" + minute + ":" + sec;
     sec--;
